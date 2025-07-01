@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @ControllerAdvice
 public class GlobalErrorHandler {
@@ -32,6 +33,12 @@ public class GlobalErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handleNotFountException(NotFoundException e) {
         return new ErrorMessage(e.getMessage());
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleJsonProcessingException(JsonProcessingException e) {
+        return new ErrorMessage("Ошибка обработки JSON: " + e.getOriginalMessage());
     }
 
     @ExceptionHandler(Exception.class)

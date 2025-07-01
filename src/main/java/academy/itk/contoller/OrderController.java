@@ -1,13 +1,11 @@
 package academy.itk.contoller;
 
-import academy.itk.model.dto.OrderDto;
-import academy.itk.model.dto.OrderPost;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
+import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface OrderController {
+    ResponseEntity<String> getOrderById(@Positive Long id) throws JsonProcessingException;
 
-    OrderDto getOrderById(@Positive Long id);
-
-    OrderDto createOrder(@Valid OrderPost order);
+    ResponseEntity<String> createOrder(String orderPostJson) throws JsonProcessingException;
 }

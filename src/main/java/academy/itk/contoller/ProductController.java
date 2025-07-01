@@ -1,21 +1,19 @@
 package academy.itk.contoller;
 
-import academy.itk.model.dto.ProductDto;
-import academy.itk.model.dto.ProductPost;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.web.bind.annotation.*;
 
 public interface ProductController {
 
-    List<ProductDto> getAllProducts();
+    ResponseEntity<String> getAllProducts() throws JsonProcessingException;
 
-    ProductDto getProductById(@Positive Long id);
+    ResponseEntity<String> getProductById(@Positive Long id) throws JsonProcessingException;
 
-    ProductDto createProduct(@Valid ProductPost productPost);
+    ResponseEntity<String> createProduct(String productPostJson) throws JsonProcessingException;
 
-    ProductDto updateProduct(@Valid ProductPost productPost, @Positive Long id);
+    ResponseEntity<String> updateProduct(String productPostJson, @Positive Long id) throws JsonProcessingException;
 
-    void deleteProduct(@Positive Long id);
+    ResponseEntity<Void> deleteProduct(@Positive Long id);
 }
